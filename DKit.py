@@ -7,6 +7,7 @@ import json
 import sys
 import functools
 import re
+import time
 
 plugin_settings = None
 server_port = 9166
@@ -119,8 +120,8 @@ def start_server():
 
     out = call(client_path + " -q", shell=True, stdout=PIPE)
     if out == 0:
-        print("Already running!")
-        return
+        call(client_path + " --shutdown", shell=True, stdout=PIPE)
+        time.sleep(1)
 
     global plugin_settings
     plugin_settings = sublime.load_settings('DKit.sublime-settings')
